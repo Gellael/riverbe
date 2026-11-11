@@ -1,0 +1,24 @@
+{
+  "status": "ready",
+  "source": "Google Earth Engine (Landsat Seamless L2 + JRC GSW 30m + MERIT Hydro)",
+  "scope": "Indonesia Only (Lingkup Indonesia Saja)",
+  "cloudQuality": "Minimal Cloud + Seamless Unmask (Bebas Lubang Hitam)",
+  "yearOld": 2010,
+  "yearNew": 2020,
+  "asset2010": "projects/project-gis-494114/assets/bibir_sungai_2010",
+  "asset2020": null,
+  "assetDynamics": null,
+  "assetSat2010": null,
+  "assetSat2020": null,
+  "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/9d88d4acdbbd54cf536edb18d3176619-d2927e48987833fc0d8170b042f8b0bc/tiles/{z}/{x}/{y}",
+  "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/38e561f8c1e63117bfd4f384633cdd43-2542ad1ee1476a5306ae97c3f435ead7/tiles/{z}/{x}/{y}",
+  "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/6c52892b174d609498ec9aa8e47c9951-46491a3ce54318b6c48e60dbfb751f80/tiles/{z}/{x}/{y}",
+  "tileSat2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/8cd83ad75795cb13a1579da79a4aa9f5-dd8e1b0cba0c2a7347a6ac512ebdf6b0/tiles/{z}/{x}/{y}",
+  "tileSat2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/4a33636e91e7d191e2a455f82b32abf6-34999e4731d0491a47591cf3b972217a/tiles/{z}/{x}/{y}",
+  "colors": {
+    "bank2010": "#fbbf24",
+    "bank2020": "#ff2255",
+    "erosi": "#ef4444",
+    "akresi": "#06b6d4"
+  }
+}

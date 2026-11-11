@@ -1,7 +1,6 @@
 .env
 .env.local
 gee-key.json
-gee_tiles.json
 cache/
 target/
 Cargo.lock
