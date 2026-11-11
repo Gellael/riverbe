@@ -34,3 +34,4 @@ module.exports = (req, res) => {
     return res.status(500).json({ error: String(err) });
   }
 };
+

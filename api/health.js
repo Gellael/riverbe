@@ -6,3 +6,4 @@ module.exports = (req, res) => {
     runtime: "Vercel Serverless"
   });
 };
+
