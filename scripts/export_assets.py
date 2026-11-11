@@ -1,5 +1,6 @@
 """
 Skrip Ekspor Asset Google Earth Engine (GEE) Resmi untuk Indonesia
+Menjalankan ekspor Citra Satelit Landsat 2010 & 2020 ke GEE Assets
 Semua kredensial dibaca otomatis dari backend/.env tanpa hardcode project ID.
 """
 import sys
@@ -15,7 +16,6 @@ load_dotenv(dotenv_path=ENV_PATH)
 
 raw_key = os.getenv("GEE_SERVICE_ACCOUNT_JSON")
 if not raw_key:
-    # Cek apakah ada file gee-key.json lokal
     key_file = Path(__file__).resolve().parent.parent / "gee-key.json"
     if key_file.exists():
         raw_key = key_file.read_text()
@@ -27,7 +27,7 @@ PROJECT_ID = info["project_id"]
 
 credentials = ee.ServiceAccountCredentials(info["client_email"], key_data=raw_key.strip())
 ee.Initialize(credentials, project=PROJECT_ID)
-print(f"✅ Terhubung ke Google Earth Engine (Project: {PROJECT_ID})")
+print(f"🔐 Terhubung ke Google Earth Engine (Project: {PROJECT_ID})")
 
 YEAR_OLD = 2010
 YEAR_NEW = 2020
@@ -37,12 +37,19 @@ indo_fc = ee.FeatureCollection("USDOS/LSIB_SIMPLE/2017").filter(ee.Filter.eq("co
 indo_mask = ee.Image.constant(1).clip(indo_fc).mask()
 indo_geom = ee.Geometry.Rectangle([94.5, -11.5, 141.5, 6.5], None, False)
 
-# --- 1. Citra Satelit Landsat 2010 True Color ---
+# --- 1. Citra Satelit Landsat 2010 True Color (RGB: B3, B2, B1) ---
+print("  - Menyiapkan komposit Landsat 7 (2010)...")
 l7_2010 = ee.ImageCollection("LANDSAT/LE07/C02/T1").filterDate("2009-06-01", "2011-06-30")
 comp_2010 = ee.Algorithms.Landsat.simpleComposite(collection=l7_2010, asFloat=True)
 sat_2010_rgb = comp_2010.select(["B3", "B2", "B1"]).multiply(255).byte().clip(indo_fc)
 
-# --- 2. Jaringan Sungai MERIT Hydro ---
+# --- 2. Citra Satelit Landsat 8 2020 True Color (RGB: B4, B3, B2) ---
+print("  - Menyiapkan komposit Landsat 8 (2020)...")
+l8_2020 = ee.ImageCollection("LANDSAT/LC08/C02/T1").filterDate("2019-06-01", "2021-06-30")
+comp_2020 = ee.Algorithms.Landsat.simpleComposite(collection=l8_2020, asFloat=True)
+sat_2020_rgb = comp_2020.select(["B4", "B3", "B2"]).multiply(255).byte().clip(indo_fc)
+
+# --- 3. Jaringan Sungai MERIT Hydro ---
 hydro = ee.Image("MERIT/Hydro/v1_0_1")
 land_drainage = hydro.select("dir").mask().And(hydro.select("elv").gte(1))
 river_net = hydro.select("upa").gte(30).selfMask()
@@ -74,6 +81,12 @@ tasks = [
         "scale": 60,
     },
     {
+        "desc": f"Ekspor_Citra_Landsat_{YEAR_NEW}",
+        "asset_id": f"{project_assets}/citra_landsat_{YEAR_NEW}",
+        "image": sat_2020_rgb,
+        "scale": 60,
+    },
+    {
         "desc": f"Ekspor_Bibir_{YEAR_OLD}",
         "asset_id": f"{project_assets}/bibir_sungai_{YEAR_OLD}",
         "image": b2010.selfMask(),
@@ -93,24 +106,50 @@ tasks = [
     }
 ]
 
-print("\n2. Memeriksa daftar tugas ekspor:")
+# Periksa status asset dan tugas yang sedang berjalan di GEE
+print("\n2. Memeriksa status keberadaan asset dan antrean tugas di server GEE...")
+
+existing_tasks = {}
+for t in ee.batch.Task.list():
+    desc = t.config.get("description", "")
+    if t.state in ["RUNNING", "READY"]:
+        existing_tasks[desc] = t.state
+
+def asset_exists(asset_id):
+    try:
+        ee.data.getAsset(asset_id)
+        return True
+    except Exception:
+        return False
+
+to_export = []
 for t in tasks:
-    print(f"  - {t['desc']} -> {t['asset_id']} (Resolusi: {t['scale']}m)")
+    desc = t["desc"]
+    aid = t["asset_id"]
+    if asset_exists(aid):
+        print(f"  ✅ {desc}: Sudah ada di GEE Asset ({aid}) -> Lewati")
+    elif desc in existing_tasks:
+        print(f"  🔄 {desc}: Sedang diproses di server GEE (Status: {existing_tasks[desc]}) -> Lewati")
+    else:
+        print(f"  ⏳ {desc}: Belum ada -> Siap diekspor ke {aid} (Resolusi: {t['scale']}m)")
+        to_export.append(t)
 
 if len(sys.argv) > 1 and sys.argv[1] == "--start":
-    print("\n🚀 Memulai pengiriman tugas ke GEE Server...")
-    for t in tasks:
-        task = ee.batch.Export.image.toAsset(
-            image=t["image"],
-            description=t["desc"],
-            assetId=t["asset_id"],
-            region=indo_geom,
-            scale=t["scale"],
-            maxPixels=1e13
-        )
-        task.start()
-        print(f"  ✅ Tugas '{t['desc']}' dikirim (ID: {task.id})")
-    print("\nSemua tugas berhasil dikirim ke server GEE!")
+    if not to_export:
+        print("\n🎉 Semua asset sudah ada atau sedang diproses di server GEE! Tidak ada tugas baru yang perlu dikirim.")
+    else:
+        print(f"\n🚀 Mengirimkan {len(to_export)} tugas ekspor baru ke server GEE...")
+        for t in to_export:
+            task = ee.batch.Export.image.toAsset(
+                image=t["image"],
+                description=t["desc"],
+                assetId=t["asset_id"],
+                region=indo_geom,
+                scale=t["scale"],
+                maxPixels=1e13
+            )
+            task.start()
+            print(f"  🚀 Tugas '{t['desc']}' berhasil dikirim! (Task ID: {task.id})")
+        print("\n✅ Pengiriman selesai. Server Google Earth Engine sedang memproses di latar belakang.")
 else:
-    print("\nℹ️ Gunakan 'python export_assets.py --start' untuk memulai ekspor ke GEE Asset.")
-
+    print("\nℹ️ Jalankan dengan argumen '--start' untuk memulai pengiriman tugas.")
