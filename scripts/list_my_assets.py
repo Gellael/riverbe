@@ -10,3 +10,4 @@ print(f"Project ID: {PROJECT_ID}")
 assets = ee.data.listAssets({"parent": f"projects/{PROJECT_ID}/assets"})
 for a in assets.get("assets", []):
     print(f"- {a['id']} ({a['type']})")
+
