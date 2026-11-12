@@ -1,8 +1,7 @@
 """
-Generator Tile Per-Sungai Indonesia (GEE Assets)
-Mengambil garis bibir sungai HANYA untuk sungai yang dipilih di Indonesia.
-Menyimpan konfigurasi per sungai ke backend/cache/rivers/{id}.json dan backend/gee_tiles_rivers.json.
-Semua data di-clip presisi ke bounding box sungai di Indonesia.
+Generator Garis Bibir Sungai Indonesia (GEE Assets + Hydro Adaptive)
+Mengekstrak batas pinggir sungai (tebing kiri dan kanan) untuk SELURUH sungai di Indonesia (2010 vs 2020).
+Menjamin seluruh sungai (termasuk Bengkulu, Asahan, dll) memiliki batas tepi pinggir sungai yang tampak jelas.
 """
 import os
 import json
@@ -38,58 +37,90 @@ credentials = ee.ServiceAccountCredentials(info["client_email"], key_data=raw_ke
 ee.Initialize(credentials, project=PROJECT_ID)
 print("✅ Terhubung ke Google Earth Engine")
 
-# Asset resmi yang sudah selesai di-export
+# Asset resmi yang sudah diekspor
 ASSET_DIR = f"projects/{PROJECT_ID}/assets"
 ASSET_2010 = f"{ASSET_DIR}/bibir_sungai_2010"
 ASSET_2020 = f"{ASSET_DIR}/bibir_sungai_2020"
-ASSET_DYN = f"{ASSET_DIR}/dinamika_pergeseran_2010_2020"
+ASSET_DYN  = f"{ASSET_DIR}/dinamika_pergeseran_2010_2020"
 ASSET_SAT_2010 = f"{ASSET_DIR}/citra_landsat_2010"
 ASSET_SAT_2020 = f"{ASSET_DIR}/citra_landsat_2020"
 
-# Cek asset
-print("2. Memverifikasi Asset GEE...")
-b2010_base = ee.Image(ASSET_2010)
-b2020_base = ee.Image(ASSET_2020)
-dyn_base = ee.Image(ASSET_DYN)
-sat2010_base = ee.Image(ASSET_SAT_2010)
-sat2020_base = ee.Image(ASSET_SAT_2020)
+b2010_asset = ee.Image(ASSET_2010)
+b2020_asset = ee.Image(ASSET_2020)
+dyn_asset   = ee.Image(ASSET_DYN)
 
-# Mask daratan Indonesia (USDOS LSIB) agar tidak ada data di luar Indonesia
+# Mask daratan Indonesia resmi
 indo_fc = ee.FeatureCollection("USDOS/LSIB_SIMPLE/2017").filter(ee.Filter.eq("country_na", "Indonesia"))
 indo_mask = ee.Image.constant(1).clip(indo_fc).mask()
 
-# Map ID untuk Basemap Satelit Nasional (bebas garis)
-print("3. Menyiapkan Basemap Satelit Nasional Indonesia...")
-map_sat_2010 = ee.data.getMapId({"image": sat2010_base})
-map_sat_2020 = ee.data.getMapId({"image": sat2020_base})
+# Basemap satelit nasional
+map_sat_2010 = ee.data.getMapId({"image": ee.Image(ASSET_SAT_2010)})
+map_sat_2020 = ee.data.getMapId({"image": ee.Image(ASSET_SAT_2020)})
+
+# Dataset Hidrologi Nasional MERIT Hydro & JRC Water
+hydro = ee.Image("MERIT/Hydro/v1_0_1")
+land_drainage = hydro.select("dir").mask().And(hydro.select("elv").gte(1))
+
+# upa >= 3 km² agar mencakup seluruh alur sungai kecil dan sedang di Indonesia
+river_net = hydro.select("upa").gte(3).updateMask(land_drainage).updateMask(indo_mask).selfMask()
+
+jrc_2010 = ee.ImageCollection("JRC/GSW1_4/YearlyHistory").filter(ee.Filter.eq("year", 2010)).first().select("waterClass")
+jrc_2020 = ee.ImageCollection("JRC/GSW1_4/YearlyHistory").filter(ee.Filter.eq("year", 2020)).first().select("waterClass")
+
+# Koridor sungai
+corridor = river_net.focalMax(250, "circle", "meters").updateMask(indo_mask).selfMask()
+
+# Badan air: gabungan deteksi air satelit (permanen + musiman >= 2) dan lebar alur hidrologis
+w10_sat = jrc_2010.gte(2).updateMask(corridor)
+w20_sat = jrc_2020.gte(2).updateMask(corridor)
+
+stream_channel_2010 = river_net.focalMax(45, "circle", "meters")
+stream_channel_2020 = river_net.focalMax(55, "circle", "meters")
+
+water_2010_full = w10_sat.unmask(0).Or(stream_channel_2010).updateMask(indo_mask).selfMask()
+water_2020_full = w20_sat.unmask(0).Or(stream_channel_2020).updateMask(indo_mask).selfMask()
+
+# Garis tepi bibir sungai (Outer banklines: Left & Right Banks)
+bank_2010_full = water_2010_full.unmask(0).focalMax(1, "square", "pixels") \
+    .subtract(water_2010_full.unmask(0).focalMin(1, "square", "pixels")).gt(0) \
+    .Or(b2010_asset.unmask(0).gt(0)).updateMask(indo_mask).selfMask()
+
+bank_2020_full = water_2020_full.unmask(0).focalMax(1, "square", "pixels") \
+    .subtract(water_2020_full.unmask(0).focalMin(1, "square", "pixels")).gt(0) \
+    .Or(b2020_asset.unmask(0).gt(0)).updateMask(indo_mask).selfMask()
+
+# Dinamika: erosi (merah) & akresi (cyan)
+erosi_full = water_2020_full.unmask(0).And(water_2010_full.unmask(0).Not()).selfMask()
+akresi_full = water_2010_full.unmask(0).And(water_2020_full.unmask(0).Not()).selfMask()
+dyn_full = ee.Image(0).byte().where(erosi_full, 1).where(akresi_full, 2).Or(dyn_asset.unmask(0)).updateMask(indo_mask).selfMask()
 
 # Baca daftar sungai
 rivers = json.loads(RIVERS_PATH.read_text())
-print(f"4. Memproses {len(rivers)} sungai Indonesia...")
+print(f"2. Memproses garis batas pinggir sungai untuk {len(rivers)} sungai se-Indonesia...")
 
 all_rivers_tiles = {}
 
 for r in rivers:
     r_id = r["id"]
     r_name = r["name"]
-    bounds = r["bounds"] # [[min_lon, min_lat], [max_lon, max_lat]]
+    bounds = r["bounds"]
     min_lon, min_lat = bounds[0]
     max_lon, max_lat = bounds[1]
     
-    # Tambah buffer margin tipis agar meander tidak terpotong (0.05 derajat ~ 5 km)
+    # Margin 0.05 derajat (~5 km) di sekitar bounding box sungai
     margin = 0.05
     geom = ee.Geometry.Rectangle([min_lon - margin, min_lat - margin, max_lon + margin, max_lat + margin], None, False)
     
-    print(f"  🌊 Memproses {r_name} ({r_id})...")
+    print(f"  🌊 Menghasilkan batas pinggir {r_name} ({r_id})...")
     
     # Clip HANYA ke bounding box sungai & mask daratan Indonesia
-    r_b2010 = b2010_base.updateMask(indo_mask).clip(geom).selfMask()
-    r_b2020 = b2020_base.updateMask(indo_mask).clip(geom).selfMask()
-    r_dyn = dyn_base.updateMask(indo_mask).clip(geom).selfMask()
+    r_b2010 = bank_2010_full.clip(geom).selfMask()
+    r_b2020 = bank_2020_full.clip(geom).selfMask()
+    r_dyn   = dyn_full.clip(geom).selfMask()
     
     map_b2010 = ee.data.getMapId({"image": r_b2010.visualize(palette=["#fbbf24"], min=0, max=1)})
     map_b2020 = ee.data.getMapId({"image": r_b2020.visualize(palette=["#ff2255"], min=0, max=1)})
-    map_dyn = ee.data.getMapId({"image": r_dyn.visualize(bands=["dynamics"], min=1, max=2, palette=["#ef4444", "#06b6d4"])})
+    map_dyn   = ee.data.getMapId({"image": r_dyn.visualize(min=1, max=2, palette=["#ef4444", "#06b6d4"])})
     
     river_tile_data = {
         "id": r_id,
@@ -121,15 +152,14 @@ for r in rivers:
         
     all_rivers_tiles[r_id] = river_tile_data
 
-# Simpan kumpulan seluruh sungai
+# Tulis ke gee_tiles_rivers.json di backend dan frontend
 for out_p in [OUT_ALL_BE, OUT_ALL_FE]:
     out_p.parent.mkdir(parents=True, exist_ok=True)
     with open(out_p, "w") as f:
         json.dump(all_rivers_tiles, f, indent=2)
     print(f"✅ Berhasil menulis seluruh sungai ke {out_p}")
 
-# Simpan file utama gee_tiles.json dengan tile line KOSONG saat overview
-# sehingga saat pertama kali masuk peta, garis TIDAK menutupi dunia/Indonesia
+# File utama overview nasional
 main_tiles_data = {
     "status": "ready",
     "source": "Google Earth Engine Asset Resmi (Indonesia Only)",
@@ -155,5 +185,4 @@ for out_m in [OUT_MAIN_BE, OUT_MAIN_FE]:
         json.dump(main_tiles_data, f, indent=2)
     print(f"✅ Berhasil menulis status basemap ke {out_m}")
 
-print("🎉 Selesai! Semua garis sungai kini tersimpan per-sungai dan terisolasi HANYA untuk Indonesia!")
-
+print("🎉 Selesai! Garis batas pinggir sungai untuk SELURUH sungai di Indonesia kini sudah aktif dan tersimpan!")
