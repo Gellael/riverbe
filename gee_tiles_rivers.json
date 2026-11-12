@@ -1,0 +1,614 @@
+{
+  "kapuas": {
+    "id": "kapuas",
+    "name": "Sungai Kapuas",
+    "province": "Kalimantan Barat",
+    "island": "Kalimantan",
+    "bounds": [
+      [
+        109.1,
+        -0.4
+      ],
+      [
+        112.5,
+        0.8
+      ]
+    ],
+    "center": [
+      111.45,
+      0.15
+    ],
+    "zoom": 11,
+    "fromAsset": true,
+    "asset2010": "projects/project-gis-494114/assets/bibir_sungai_2010",
+    "asset2020": "projects/project-gis-494114/assets/bibir_sungai_2020",
+    "assetDynamics": "projects/project-gis-494114/assets/dinamika_pergeseran_2010_2020",
+    "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/ef4461f4f0f6f7cf9855b12a50554af2-f78a3f26a39b1a70d1096a0f9c248f34/tiles/{z}/{x}/{y}",
+    "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/ce6f4e39a743f3e670747f269e81353c-378f6f7940eca0a9725959fe2601b2ce/tiles/{z}/{x}/{y}",
+    "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/2c8ee7608ed4391fc5e8d44a3a4bd5d3-22043708aa00885efc9299419dde8633/tiles/{z}/{x}/{y}",
+    "colors": {
+      "bank2010": "#fbbf24",
+      "bank2020": "#ff2255",
+      "erosi": "#ef4444",
+      "akresi": "#06b6d4"
+    }
+  },
+  "mahakam": {
+    "id": "mahakam",
+    "name": "Sungai Mahakam",
+    "province": "Kalimantan Timur",
+    "island": "Kalimantan",
+    "bounds": [
+      [
+        115.5,
+        -0.8
+      ],
+      [
+        117.5,
+        0.5
+      ]
+    ],
+    "center": [
+      116.85,
+      -0.45
+    ],
+    "zoom": 11,
+    "fromAsset": true,
+    "asset2010": "projects/project-gis-494114/assets/bibir_sungai_2010",
+    "asset2020": "projects/project-gis-494114/assets/bibir_sungai_2020",
+    "assetDynamics": "projects/project-gis-494114/assets/dinamika_pergeseran_2010_2020",
+    "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/ec9d3208700cc77ee91ba6107e4da7c1-d71037368a0ffe43dd0c5323026ab6f4/tiles/{z}/{x}/{y}",
+    "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/da7436888908184c9338d21ded2d98e7-9826fe107fb28c1d79db8d3480f13b7e/tiles/{z}/{x}/{y}",
+    "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/0bc1e048d4e6f42074a51d8f9afbf64f-ce291d4b403a7bae6d6c45cb52df007f/tiles/{z}/{x}/{y}",
+    "colors": {
+      "bank2010": "#fbbf24",
+      "bank2020": "#ff2255",
+      "erosi": "#ef4444",
+      "akresi": "#06b6d4"
+    }
+  },
+  "barito": {
+    "id": "barito",
+    "name": "Sungai Barito",
+    "province": "Kalimantan Selatan",
+    "island": "Kalimantan",
+    "bounds": [
+      [
+        114.3,
+        -3.5
+      ],
+      [
+        115.2,
+        -1.0
+      ]
+    ],
+    "center": [
+      114.75,
+      -2.85
+    ],
+    "zoom": 11,
+    "fromAsset": true,
+    "asset2010": "projects/project-gis-494114/assets/bibir_sungai_2010",
+    "asset2020": "projects/project-gis-494114/assets/bibir_sungai_2020",
+    "assetDynamics": "projects/project-gis-494114/assets/dinamika_pergeseran_2010_2020",
+    "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/235a139c194165e5da2dc93780df518f-894213efc2bc56aab3f5d01e2e8bab6e/tiles/{z}/{x}/{y}",
+    "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/aa9f383498b4db1ab88a3d4954e3b44c-0d35e9760ec5692b4063044da7941479/tiles/{z}/{x}/{y}",
+    "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/a9808b94f986740fbc6b3129d4a9974c-14a5f179f2bc1494dfa219b0efc2bcd8/tiles/{z}/{x}/{y}",
+    "colors": {
+      "bank2010": "#fbbf24",
+      "bank2020": "#ff2255",
+      "erosi": "#ef4444",
+      "akresi": "#06b6d4"
+    }
+  },
+  "kahayan": {
+    "id": "kahayan",
+    "name": "Sungai Kahayan",
+    "province": "Kalimantan Tengah",
+    "island": "Kalimantan",
+    "bounds": [
+      [
+        113.5,
+        -3.2
+      ],
+      [
+        114.2,
+        -1.5
+      ]
+    ],
+    "center": [
+      113.92,
+      -2.21
+    ],
+    "zoom": 11,
+    "fromAsset": true,
+    "asset2010": "projects/project-gis-494114/assets/bibir_sungai_2010",
+    "asset2020": "projects/project-gis-494114/assets/bibir_sungai_2020",
+    "assetDynamics": "projects/project-gis-494114/assets/dinamika_pergeseran_2010_2020",
+    "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/810906adc1b541bba1bb1f665d8437ec-fc147a7ddaee320ebb9f12836fbfce8a/tiles/{z}/{x}/{y}",
+    "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/f50ef91eb813535d0cc06291886e2759-337f76f73f12e387b38549efec36ba01/tiles/{z}/{x}/{y}",
+    "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/18ccf668536671916c12717b67fd19e4-d05df70c9797c537bde9f09f571b2dde/tiles/{z}/{x}/{y}",
+    "colors": {
+      "bank2010": "#fbbf24",
+      "bank2020": "#ff2255",
+      "erosi": "#ef4444",
+      "akresi": "#06b6d4"
+    }
+  },
+  "musi": {
+    "id": "musi",
+    "name": "Sungai Musi",
+    "province": "Sumatera Selatan",
+    "island": "Sumatera",
+    "bounds": [
+      [
+        104.2,
+        -3.5
+      ],
+      [
+        105.1,
+        -2.2
+      ]
+    ],
+    "center": [
+      104.75,
+      -2.98
+    ],
+    "zoom": 11,
+    "fromAsset": true,
+    "asset2010": "projects/project-gis-494114/assets/bibir_sungai_2010",
+    "asset2020": "projects/project-gis-494114/assets/bibir_sungai_2020",
+    "assetDynamics": "projects/project-gis-494114/assets/dinamika_pergeseran_2010_2020",
+    "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/0a48ae82191f5a8fe1e9fd2698cfaec0-a33f438e2a006a068a1acd0475425121/tiles/{z}/{x}/{y}",
+    "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/1216b2fccc086f4837a74aaa90ed8f11-31c65bc4511b7bc76cd6bdc5e2c222d6/tiles/{z}/{x}/{y}",
+    "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/a48e5d936d0ff170573feb163b802286-a68a33601d8fa739bfe2a9006e4548c9/tiles/{z}/{x}/{y}",
+    "colors": {
+      "bank2010": "#fbbf24",
+      "bank2020": "#ff2255",
+      "erosi": "#ef4444",
+      "akresi": "#06b6d4"
+    }
+  },
+  "batanghari": {
+    "id": "batanghari",
+    "name": "Sungai Batanghari",
+    "province": "Jambi",
+    "island": "Sumatera",
+    "bounds": [
+      [
+        103.0,
+        -1.8
+      ],
+      [
+        104.2,
+        -1.0
+      ]
+    ],
+    "center": [
+      103.62,
+      -1.58
+    ],
+    "zoom": 11,
+    "fromAsset": true,
+    "asset2010": "projects/project-gis-494114/assets/bibir_sungai_2010",
+    "asset2020": "projects/project-gis-494114/assets/bibir_sungai_2020",
+    "assetDynamics": "projects/project-gis-494114/assets/dinamika_pergeseran_2010_2020",
+    "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/1a8491591c642b051749ecd7437262e0-f98b797fd7e935927f0c87e0ad523f18/tiles/{z}/{x}/{y}",
+    "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/4355749640e6c6383cc6299db0a477ef-5c56558a1ae60be8b22c0b025ae4fdaa/tiles/{z}/{x}/{y}",
+    "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/629e9d75f08e6f8b0f6126ebce350e35-132e452edccf00f83273a0827bc10605/tiles/{z}/{x}/{y}",
+    "colors": {
+      "bank2010": "#fbbf24",
+      "bank2020": "#ff2255",
+      "erosi": "#ef4444",
+      "akresi": "#06b6d4"
+    }
+  },
+  "kampar": {
+    "id": "kampar",
+    "name": "Sungai Kampar",
+    "province": "Riau",
+    "island": "Sumatera",
+    "bounds": [
+      [
+        101.5,
+        0.0
+      ],
+      [
+        103.2,
+        0.6
+      ]
+    ],
+    "center": [
+      102.5,
+      0.35
+    ],
+    "zoom": 11,
+    "fromAsset": true,
+    "asset2010": "projects/project-gis-494114/assets/bibir_sungai_2010",
+    "asset2020": "projects/project-gis-494114/assets/bibir_sungai_2020",
+    "assetDynamics": "projects/project-gis-494114/assets/dinamika_pergeseran_2010_2020",
+    "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/6e3c230d29809d4ee86de5c1c3e99e87-58c73a41e2bef0956021871952b3c6a0/tiles/{z}/{x}/{y}",
+    "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/0f07337a45ba7b232f0b250aeffd5844-c8ccb1cae0018e8619adea6b08b4ccf9/tiles/{z}/{x}/{y}",
+    "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/87f4c87bf12e745bad3c97fe97ecd872-2700b442a111d45108fcaa162c07bc3a/tiles/{z}/{x}/{y}",
+    "colors": {
+      "bank2010": "#fbbf24",
+      "bank2020": "#ff2255",
+      "erosi": "#ef4444",
+      "akresi": "#06b6d4"
+    }
+  },
+  "siak": {
+    "id": "siak",
+    "name": "Sungai Siak",
+    "province": "Riau",
+    "island": "Sumatera",
+    "bounds": [
+      [
+        101.3,
+        0.4
+      ],
+      [
+        102.2,
+        1.2
+      ]
+    ],
+    "center": [
+      101.65,
+      0.72
+    ],
+    "zoom": 11,
+    "fromAsset": true,
+    "asset2010": "projects/project-gis-494114/assets/bibir_sungai_2010",
+    "asset2020": "projects/project-gis-494114/assets/bibir_sungai_2020",
+    "assetDynamics": "projects/project-gis-494114/assets/dinamika_pergeseran_2010_2020",
+    "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/cbed70433e1faa91921904ff341bce06-64008975151b9f71ff1ae561b3d96641/tiles/{z}/{x}/{y}",
+    "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/4343d3cfef77749156f2acdbf37664b6-5e2d6dd3c61ec7d31d995d2216833564/tiles/{z}/{x}/{y}",
+    "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/d4bdd3c9035c7bb95d470c9dd969b184-736c7c5bb4dfab9554bccfb49a54b75a/tiles/{z}/{x}/{y}",
+    "colors": {
+      "bank2010": "#fbbf24",
+      "bank2020": "#ff2255",
+      "erosi": "#ef4444",
+      "akresi": "#06b6d4"
+    }
+  },
+  "indragiri": {
+    "id": "indragiri",
+    "name": "Sungai Indragiri",
+    "province": "Riau",
+    "island": "Sumatera",
+    "bounds": [
+      [
+        102.0,
+        -0.6
+      ],
+      [
+        103.4,
+        -0.2
+      ]
+    ],
+    "center": [
+      102.8,
+      -0.4
+    ],
+    "zoom": 11,
+    "fromAsset": true,
+    "asset2010": "projects/project-gis-494114/assets/bibir_sungai_2010",
+    "asset2020": "projects/project-gis-494114/assets/bibir_sungai_2020",
+    "assetDynamics": "projects/project-gis-494114/assets/dinamika_pergeseran_2010_2020",
+    "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/787be9d6c6c060070357036a712ae5a2-ed9fae96442a688c92e34309a1428136/tiles/{z}/{x}/{y}",
+    "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/330af97fc3a3b25f54b08147110cb9e7-df363f17d90dc61728d63244d74a5a52/tiles/{z}/{x}/{y}",
+    "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/83293060fcdbcd82cedcbae13373d4ce-b611ee447a4b693ac53d7ce9c5397010/tiles/{z}/{x}/{y}",
+    "colors": {
+      "bank2010": "#fbbf24",
+      "bank2020": "#ff2255",
+      "erosi": "#ef4444",
+      "akresi": "#06b6d4"
+    }
+  },
+  "asahan": {
+    "id": "asahan",
+    "name": "Sungai Asahan",
+    "province": "Sumatera Utara",
+    "island": "Sumatera",
+    "bounds": [
+      [
+        99.2,
+        2.7
+      ],
+      [
+        100.0,
+        3.2
+      ]
+    ],
+    "center": [
+      99.78,
+      3.01
+    ],
+    "zoom": 11,
+    "fromAsset": true,
+    "asset2010": "projects/project-gis-494114/assets/bibir_sungai_2010",
+    "asset2020": "projects/project-gis-494114/assets/bibir_sungai_2020",
+    "assetDynamics": "projects/project-gis-494114/assets/dinamika_pergeseran_2010_2020",
+    "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/da5ae4f4df9fd25e877a7bc49a6f4526-3e53b41c792f090d46e0e064d06e96b8/tiles/{z}/{x}/{y}",
+    "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/940fca28de09b916f4e8929b082bfd68-37582c21ef5b10c7152530152c8b6ebe/tiles/{z}/{x}/{y}",
+    "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/86becbbd9f52859d90fce4a6bcf8ccee-5548c36f2e874464a3e86d1bf808eb1a/tiles/{z}/{x}/{y}",
+    "colors": {
+      "bank2010": "#fbbf24",
+      "bank2020": "#ff2255",
+      "erosi": "#ef4444",
+      "akresi": "#06b6d4"
+    }
+  },
+  "bengkulu": {
+    "id": "bengkulu",
+    "name": "Sungai Bengkulu",
+    "province": "Bengkulu",
+    "island": "Sumatera",
+    "bounds": [
+      [
+        102.1,
+        -4.1
+      ],
+      [
+        102.6,
+        -3.6
+      ]
+    ],
+    "center": [
+      102.3,
+      -3.85
+    ],
+    "zoom": 11,
+    "fromAsset": true,
+    "asset2010": "projects/project-gis-494114/assets/bibir_sungai_2010",
+    "asset2020": "projects/project-gis-494114/assets/bibir_sungai_2020",
+    "assetDynamics": "projects/project-gis-494114/assets/dinamika_pergeseran_2010_2020",
+    "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/991df576f43dd6adeefea2da550af40d-88541d6dc0cada2b4a4a69936c155241/tiles/{z}/{x}/{y}",
+    "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/3144c37d500b8dd1c0eeb25f2e0fd35f-f0db129106c29ae71c9325d446875c5f/tiles/{z}/{x}/{y}",
+    "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/1c1e8fb19c48075e486d776da74e8996-b5643725811c814b24681ddba5bcac4e/tiles/{z}/{x}/{y}",
+    "colors": {
+      "bank2010": "#fbbf24",
+      "bank2020": "#ff2255",
+      "erosi": "#ef4444",
+      "akresi": "#06b6d4"
+    }
+  },
+  "bengawan_solo": {
+    "id": "bengawan_solo",
+    "name": "Sungai Bengawan Solo",
+    "province": "Jawa Tengah - Jatim",
+    "island": "Jawa",
+    "bounds": [
+      [
+        110.8,
+        -7.6
+      ],
+      [
+        112.6,
+        -6.8
+      ]
+    ],
+    "center": [
+      111.9,
+      -7.15
+    ],
+    "zoom": 11,
+    "fromAsset": true,
+    "asset2010": "projects/project-gis-494114/assets/bibir_sungai_2010",
+    "asset2020": "projects/project-gis-494114/assets/bibir_sungai_2020",
+    "assetDynamics": "projects/project-gis-494114/assets/dinamika_pergeseran_2010_2020",
+    "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/8f58ef9f0d55b5ffe31584d122e49d88-d94ac155eb8ff287a28e55971921081c/tiles/{z}/{x}/{y}",
+    "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/d9dcce769919a97b945318446634e001-712ac09d4965b1143477a7f8d1263b0b/tiles/{z}/{x}/{y}",
+    "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/2f14001f948cfde73c6c0dbd9c5bdd61-792610da687c92b689beeecbb3bbb3fa/tiles/{z}/{x}/{y}",
+    "colors": {
+      "bank2010": "#fbbf24",
+      "bank2020": "#ff2255",
+      "erosi": "#ef4444",
+      "akresi": "#06b6d4"
+    }
+  },
+  "brantas": {
+    "id": "brantas",
+    "name": "Sungai Brantas",
+    "province": "Jawa Timur",
+    "island": "Jawa",
+    "bounds": [
+      [
+        111.9,
+        -7.9
+      ],
+      [
+        112.8,
+        -7.3
+      ]
+    ],
+    "center": [
+      112.25,
+      -7.55
+    ],
+    "zoom": 11,
+    "fromAsset": true,
+    "asset2010": "projects/project-gis-494114/assets/bibir_sungai_2010",
+    "asset2020": "projects/project-gis-494114/assets/bibir_sungai_2020",
+    "assetDynamics": "projects/project-gis-494114/assets/dinamika_pergeseran_2010_2020",
+    "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/7dc66dfc908ddb423ceeab5fcd444c35-f42b496da8febdeaeb33e87424d18053/tiles/{z}/{x}/{y}",
+    "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/d2c6395fb5e8190cb3e34d03efbef968-0bf67cf1c2b57c4badaec9387f6b5681/tiles/{z}/{x}/{y}",
+    "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/14a715d8fd39afa59ec794ddb953c29c-5782ce65773f2cb34acf2ba87feeee72/tiles/{z}/{x}/{y}",
+    "colors": {
+      "bank2010": "#fbbf24",
+      "bank2020": "#ff2255",
+      "erosi": "#ef4444",
+      "akresi": "#06b6d4"
+    }
+  },
+  "citarum": {
+    "id": "citarum",
+    "name": "Sungai Citarum",
+    "province": "Jawa Barat",
+    "island": "Jawa",
+    "bounds": [
+      [
+        107.0,
+        -6.6
+      ],
+      [
+        107.6,
+        -5.9
+      ]
+    ],
+    "center": [
+      107.25,
+      -6.15
+    ],
+    "zoom": 11,
+    "fromAsset": true,
+    "asset2010": "projects/project-gis-494114/assets/bibir_sungai_2010",
+    "asset2020": "projects/project-gis-494114/assets/bibir_sungai_2020",
+    "assetDynamics": "projects/project-gis-494114/assets/dinamika_pergeseran_2010_2020",
+    "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/65991032a276ef0b4085072918aec839-5b151a96e22527a7244c5b40ccfe82c6/tiles/{z}/{x}/{y}",
+    "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/9950d2bb3d92b1ee87e541086fea83d5-d2c21c2cd1276922b5f10c3dee7e52f8/tiles/{z}/{x}/{y}",
+    "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/b2423251642be21d76c23c512f47c05c-130f54693d8561a787594581b3e894fe/tiles/{z}/{x}/{y}",
+    "colors": {
+      "bank2010": "#fbbf24",
+      "bank2020": "#ff2255",
+      "erosi": "#ef4444",
+      "akresi": "#06b6d4"
+    }
+  },
+  "saddang": {
+    "id": "saddang",
+    "name": "Sungai Saddang",
+    "province": "Sulawesi Selatan",
+    "island": "Sulawesi",
+    "bounds": [
+      [
+        119.4,
+        -3.9
+      ],
+      [
+        119.8,
+        -3.4
+      ]
+    ],
+    "center": [
+      119.65,
+      -3.65
+    ],
+    "zoom": 11,
+    "fromAsset": true,
+    "asset2010": "projects/project-gis-494114/assets/bibir_sungai_2010",
+    "asset2020": "projects/project-gis-494114/assets/bibir_sungai_2020",
+    "assetDynamics": "projects/project-gis-494114/assets/dinamika_pergeseran_2010_2020",
+    "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/30b09d272f8600ed17c997737431407d-4215e7bb558901b24d8b674587a9cbff/tiles/{z}/{x}/{y}",
+    "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/5f002446a05b6f28bfd123900b5e4f98-e521a0749a061b423340b2640081c341/tiles/{z}/{x}/{y}",
+    "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/f12894b344a8080b059fef9790c0d1aa-8dc212250ddae3b18d33aa8f775c573c/tiles/{z}/{x}/{y}",
+    "colors": {
+      "bank2010": "#fbbf24",
+      "bank2020": "#ff2255",
+      "erosi": "#ef4444",
+      "akresi": "#06b6d4"
+    }
+  },
+  "lariang": {
+    "id": "lariang",
+    "name": "Sungai Lariang",
+    "province": "Sulawesi Barat/Tengah",
+    "island": "Sulawesi",
+    "bounds": [
+      [
+        119.2,
+        -1.6
+      ],
+      [
+        119.7,
+        -1.2
+      ]
+    ],
+    "center": [
+      119.4,
+      -1.45
+    ],
+    "zoom": 11,
+    "fromAsset": true,
+    "asset2010": "projects/project-gis-494114/assets/bibir_sungai_2010",
+    "asset2020": "projects/project-gis-494114/assets/bibir_sungai_2020",
+    "assetDynamics": "projects/project-gis-494114/assets/dinamika_pergeseran_2010_2020",
+    "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/413bb1585504489a82f82bcea5d1cf28-ef1402fb7d6af6a5513f4c43d853e652/tiles/{z}/{x}/{y}",
+    "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/8298467a64ef970e9ba2c55d72b07c51-10d87b04c92aef5f1c0c42d7b53d3435/tiles/{z}/{x}/{y}",
+    "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/eff50574c06dbc6c8ef989728efc6d40-9ae2ab21d85666477c50c5524d5a86d9/tiles/{z}/{x}/{y}",
+    "colors": {
+      "bank2010": "#fbbf24",
+      "bank2020": "#ff2255",
+      "erosi": "#ef4444",
+      "akresi": "#06b6d4"
+    }
+  },
+  "mamberamo": {
+    "id": "mamberamo",
+    "name": "Sungai Mamberamo",
+    "province": "Papua",
+    "island": "Papua",
+    "bounds": [
+      [
+        137.5,
+        -2.5
+      ],
+      [
+        138.5,
+        -1.4
+      ]
+    ],
+    "center": [
+      137.95,
+      -1.85
+    ],
+    "zoom": 10,
+    "fromAsset": true,
+    "asset2010": "projects/project-gis-494114/assets/bibir_sungai_2010",
+    "asset2020": "projects/project-gis-494114/assets/bibir_sungai_2020",
+    "assetDynamics": "projects/project-gis-494114/assets/dinamika_pergeseran_2010_2020",
+    "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/ba499e9c3c6b7613956fb57680682bc0-6bf7d342b7c6a5d5fe9164f1aaaf2443/tiles/{z}/{x}/{y}",
+    "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/757bdab068d398b39b87f1c9a119a740-792845c05e06d87a18520471d4790bed/tiles/{z}/{x}/{y}",
+    "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/30c30fbeb38c447e43948c4ae6cc1c05-fe55639059be216e311d067e7c6197a2/tiles/{z}/{x}/{y}",
+    "colors": {
+      "bank2010": "#fbbf24",
+      "bank2020": "#ff2255",
+      "erosi": "#ef4444",
+      "akresi": "#06b6d4"
+    }
+  },
+  "digul": {
+    "id": "digul",
+    "name": "Sungai Digul",
+    "province": "Papua Selatan",
+    "island": "Papua",
+    "bounds": [
+      [
+        139.2,
+        -7.5
+      ],
+      [
+        140.5,
+        -6.0
+      ]
+    ],
+    "center": [
+      139.85,
+      -6.8
+    ],
+    "zoom": 10,
+    "fromAsset": true,
+    "asset2010": "projects/project-gis-494114/assets/bibir_sungai_2010",
+    "asset2020": "projects/project-gis-494114/assets/bibir_sungai_2020",
+    "assetDynamics": "projects/project-gis-494114/assets/dinamika_pergeseran_2010_2020",
+    "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/e3b306fd5fca3a330b0fcb4d10762c76-f2d98c6e013ba5f626fbbe86dd7be79a/tiles/{z}/{x}/{y}",
+    "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/38801feeb69fdb34ae6ed907c6f285f5-cb4f8a25e3732fc88b1e16a97e45636f/tiles/{z}/{x}/{y}",
+    "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/23bb2b367eff0a97b55931715a059ddb-42f60190c8c14bebe0e6d0379242f709/tiles/{z}/{x}/{y}",
+    "colors": {
+      "bank2010": "#fbbf24",
+      "bank2020": "#ff2255",
+      "erosi": "#ef4444",
+      "akresi": "#06b6d4"
+    }
+  }
+}

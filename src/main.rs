@@ -131,8 +131,10 @@ async fn health_handler(State(state): State<AppState>) -> Json<Value> {
     }))
 }
 
-async fn get_tiles_handler(State(state): State<AppState>) -> impl IntoResponse {
-    let config = state.tiles_config.read().unwrap().clone();
+async fn get_tiles_handler(
+    State(state): State<AppState>,
+    axum::extract::Query(params): axum::extract::Query<HashMap<String, String>>,
+) -> impl IntoResponse {
     let mut headers = HeaderMap::new();
     headers.insert(
         header::CACHE_CONTROL,
@@ -141,6 +143,26 @@ async fn get_tiles_handler(State(state): State<AppState>) -> impl IntoResponse {
             .unwrap(),
     );
 
+    // Jika dipanggil dengan ?river=<id>
+    if let Some(river_id) = params.get("river") {
+        let clean_id = river_id.to_lowercase();
+        let river_cache_path = format!("cache/rivers/{}.json", clean_id);
+        if let Ok(content) = fs::read_to_string(&river_cache_path) {
+            if let Ok(val) = serde_json::from_str::<Value>(&content) {
+                return (headers, Json(val));
+            }
+        }
+
+        if let Ok(content) = fs::read_to_string("gee_tiles_rivers.json") {
+            if let Ok(all) = serde_json::from_str::<Value>(&content) {
+                if let Some(river_val) = all.get(&clean_id) {
+                    return (headers, Json(river_val.clone()));
+                }
+            }
+        }
+    }
+
+    let config = state.tiles_config.read().unwrap().clone();
     (headers, Json(config))
 }
 

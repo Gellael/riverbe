@@ -66,45 +66,45 @@ indo_fc = ee.FeatureCollection("USDOS/LSIB_SIMPLE/2017").filter(ee.Filter.eq("co
 indo_mask = ee.Image.constant(1).clip(indo_fc).mask()
 
 # --- 1. BIBIR SUNGAI 2010 ---
-print("  - Menyiapkan layer Bibir 2010...")
+print("  - Menyiapkan layer Bibir 2010 (Indonesia Only)...")
 if has_2010:
-    b2010_img = ee.Image(ASSET_2010).selfMask()
+    b2010_img = ee.Image(ASSET_2010).updateMask(indo_mask).selfMask()
 else:
     hydro = ee.Image("MERIT/Hydro/v1_0_1")
-    corridor = hydro.select("upa").gte(30).focalMax(400, "circle", "meters").selfMask()
+    corridor = hydro.select("upa").gte(30).focalMax(400, "circle", "meters").updateMask(indo_mask).selfMask()
     jrc_2010 = ee.ImageCollection("JRC/GSW1_4/YearlyHistory").filter(ee.Filter.eq("year", YEAR_OLD)).first().select("waterClass")
     w2010 = jrc_2010.eq(3).updateMask(corridor).selfMask()
-    b2010_img = w2010.unmask(0).focalMax(1, "square", "pixels").subtract(w2010.unmask(0).focalMin(1, "square", "pixels")).gt(0).selfMask()
+    b2010_img = w2010.unmask(0).focalMax(1, "square", "pixels").subtract(w2010.unmask(0).focalMin(1, "square", "pixels")).gt(0).updateMask(indo_mask).selfMask()
 
 map_2010 = ee.data.getMapId({"image": b2010_img.visualize(palette=["#fbbf24"], min=0, max=1)})
 
 # --- 2. BIBIR SUNGAI 2020 ---
-print("  - Menyiapkan layer Bibir 2020...")
+print("  - Menyiapkan layer Bibir 2020 (Indonesia Only)...")
 if has_2020:
-    b2020_img = ee.Image(ASSET_2020).selfMask()
+    b2020_img = ee.Image(ASSET_2020).updateMask(indo_mask).selfMask()
 else:
     hydro = ee.Image("MERIT/Hydro/v1_0_1")
-    corridor = hydro.select("upa").gte(30).focalMax(400, "circle", "meters").selfMask()
+    corridor = hydro.select("upa").gte(30).focalMax(400, "circle", "meters").updateMask(indo_mask).selfMask()
     jrc_2020 = ee.ImageCollection("JRC/GSW1_4/YearlyHistory").filter(ee.Filter.eq("year", YEAR_NEW)).first().select("waterClass")
     w2020 = jrc_2020.eq(3).updateMask(corridor).selfMask()
-    b2020_img = w2020.unmask(0).focalMax(1, "square", "pixels").subtract(w2020.unmask(0).focalMin(1, "square", "pixels")).gt(0).selfMask()
+    b2020_img = w2020.unmask(0).focalMax(1, "square", "pixels").subtract(w2020.unmask(0).focalMin(1, "square", "pixels")).gt(0).updateMask(indo_mask).selfMask()
 
 map_2020 = ee.data.getMapId({"image": b2020_img.visualize(palette=["#ff2255"], min=0, max=1)})
 
 # --- 3. DINAMIKA ---
-print("  - Menyiapkan layer Dinamika...")
+print("  - Menyiapkan layer Dinamika (Indonesia Only)...")
 if has_dyn:
-    dyn_img = ee.Image(ASSET_DYN).selfMask()
+    dyn_img = ee.Image(ASSET_DYN).updateMask(indo_mask).selfMask()
 else:
     hydro = ee.Image("MERIT/Hydro/v1_0_1")
-    corridor = hydro.select("upa").gte(30).focalMax(400, "circle", "meters").selfMask()
+    corridor = hydro.select("upa").gte(30).focalMax(400, "circle", "meters").updateMask(indo_mask).selfMask()
     jrc_2010 = ee.ImageCollection("JRC/GSW1_4/YearlyHistory").filter(ee.Filter.eq("year", YEAR_OLD)).first().select("waterClass")
     jrc_2020 = ee.ImageCollection("JRC/GSW1_4/YearlyHistory").filter(ee.Filter.eq("year", YEAR_NEW)).first().select("waterClass")
     w2010 = jrc_2010.eq(3).updateMask(corridor).selfMask()
     w2020 = jrc_2020.eq(3).updateMask(corridor).selfMask()
     erosi = w2020.unmask(0).And(w2010.unmask(0).Not()).selfMask()
     akresi = w2010.unmask(0).And(w2020.unmask(0).Not()).selfMask()
-    dyn_img = ee.Image(0).byte().where(erosi, 1).where(akresi, 2).selfMask()
+    dyn_img = ee.Image(0).byte().where(erosi, 1).where(akresi, 2).updateMask(indo_mask).selfMask()
 
 map_change = ee.data.getMapId({"image": dyn_img.visualize(bands=["dynamics"] if has_dyn else None, min=1, max=2, palette=["#ef4444", "#06b6d4"])})
 
