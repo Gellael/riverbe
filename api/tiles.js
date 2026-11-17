@@ -1,6 +1,25 @@
 const fs = require('fs');
 const path = require('path');
 
+// Menggunakan require() statis agar Vercel NFT (Node File Trace) 100% mem-bundle file JSON ini ke serverless container
+let defaultTiles = null;
+try {
+  defaultTiles = require('../gee_tiles.json');
+} catch (e) {
+  try {
+    defaultTiles = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'gee_tiles.json'), 'utf8'));
+  } catch (err) {}
+}
+
+let allRiversData = null;
+try {
+  allRiversData = require('../gee_tiles_rivers.json');
+} catch (e) {
+  try {
+    allRiversData = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'gee_tiles_rivers.json'), 'utf8'));
+  } catch (err) {}
+}
+
 module.exports = (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
@@ -15,65 +34,50 @@ module.exports = (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
     const riverId = url.searchParams.get('river') || req.query?.river;
 
-    // Jika dipanggil dengan parameter river (misal: /api/tiles?river=kapuas)
+    // 1. Jika meminta tile sungai tertentu (?river=kapuas, ?river=bengkulu, dll)
     if (riverId) {
       const cleanId = String(riverId).toLowerCase().trim();
 
-      // 1. Cek file cache per-sungai di cache/rivers/{cleanId}.json
-      const riverCachePaths = [
-        path.join(process.cwd(), 'cache', 'rivers', `${cleanId}.json`),
-        path.join(__dirname, '..', 'cache', 'rivers', `${cleanId}.json`),
-        path.join(process.cwd(), 'backend', 'cache', 'rivers', `${cleanId}.json`)
-      ];
-
-      for (const p of riverCachePaths) {
-        if (fs.existsSync(p)) {
-          const raw = fs.readFileSync(p, 'utf8');
-          return res.status(200).json(JSON.parse(raw));
-        }
+      // Cek dari allRiversData yang di-bundle
+      if (allRiversData && allRiversData[cleanId]) {
+        return res.status(200).json(allRiversData[cleanId]);
       }
 
-      // 2. Cek di gee_tiles_rivers.json (kumpulan seluruh sungai)
-      const allRiversPaths = [
-        path.join(process.cwd(), 'gee_tiles_rivers.json'),
-        path.join(__dirname, '..', 'gee_tiles_rivers.json'),
-        path.join(process.cwd(), 'backend', 'gee_tiles_rivers.json')
-      ];
-
-      for (const p of allRiversPaths) {
-        if (fs.existsSync(p)) {
-          const raw = fs.readFileSync(p, 'utf8');
-          const all = JSON.parse(raw);
-          if (all && all[cleanId]) {
-            return res.status(200).json(all[cleanId]);
-          }
-        }
+      // Cek dari cache/rivers/{cleanId}.json jika ada
+      const cachePath = path.join(__dirname, '..', 'cache', 'rivers', `${cleanId}.json`);
+      if (fs.existsSync(cachePath)) {
+        const raw = fs.readFileSync(cachePath, 'utf8');
+        return res.status(200).json(JSON.parse(raw));
       }
 
       return res.status(404).json({
-        error: `Sungai '${riverId}' belum tersedia di cache asset GEE.`,
+        error: `Sungai '${riverId}' belum tersedia di asset GEE.`,
         riverId: cleanId
       });
     }
 
-    // Jika dipanggil tanpa parameter (Overview Nasional)
+    // 2. Jika meminta konfigurasi umum / overview nasional
+    if (defaultTiles) {
+      return res.status(200).json(defaultTiles);
+    }
+
+    // Fallback baca file lokal jika defaultTiles null
     const candidatePaths = [
-      path.join(process.cwd(), 'gee_tiles.json'),
       path.join(__dirname, '..', 'gee_tiles.json'),
-      path.join(process.cwd(), 'cache', 'gee_tiles.json')
+      path.join(process.cwd(), 'gee_tiles.json')
     ];
 
     for (const p of candidatePaths) {
       if (fs.existsSync(p)) {
         const raw = fs.readFileSync(p, 'utf8');
-        const json = JSON.parse(raw);
-        return res.status(200).json(json);
+        return res.status(200).json(JSON.parse(raw));
       }
     }
 
     return res.status(200).json({
       status: "ready",
-      message: "Menunggu konfigurasi tile"
+      message: "Konfigurasi tile GEE aktif",
+      riversCount: allRiversData ? Object.keys(allRiversData).length : 0
     });
   } catch (err) {
     return res.status(500).json({ error: String(err) });
