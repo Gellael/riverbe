@@ -29,7 +29,6 @@ async fn main() {
 
     // 1. Membaca kredensial GEE dinamis dari Environment Variable (.env)
     let raw_key = std::env::var("GEE_SERVICE_ACCOUNT_JSON").unwrap_or_else(|_| {
-        // Fallback jika membaca file lokal gee-key.json
         fs::read_to_string("gee-key.json").unwrap_or_default()
     });
 
