@@ -112,7 +112,8 @@ map_change = ee.data.getMapId({"image": dyn_img.visualize(bands=["dynamics"] if 
 print("  - Menyiapkan layer Satelit 2010...")
 if has_sat_2010:
     sat_2010_img = ee.Image(ASSET_SAT_2010)
-    map_sat_2010 = ee.data.getMapId({"image": sat_2010_img})
+    vis_2010 = sat_2010_img.visualize(bands=["B3", "B2", "B1"], min=10, max=220, gamma=1.2)
+    map_sat_2010 = ee.data.getMapId({"image": vis_2010})
 else:
     l7 = ee.ImageCollection("LANDSAT/LE07/C02/T1").filterDate("2009-06-01", "2011-06-30")
     comp_2010 = ee.Algorithms.Landsat.simpleComposite(collection=l7, asFloat=True)
@@ -123,7 +124,8 @@ else:
 print("  - Menyiapkan layer Satelit 2020...")
 if has_sat_2020:
     sat_2020_img = ee.Image(ASSET_SAT_2020)
-    map_sat_2020 = ee.data.getMapId({"image": sat_2020_img})
+    vis_2020 = sat_2020_img.visualize(bands=["B4", "B3", "B2"], min=10, max=220, gamma=1.2)
+    map_sat_2020 = ee.data.getMapId({"image": vis_2020})
 else:
     l8 = ee.ImageCollection("LANDSAT/LC08/C02/T1").filterDate("2019-06-01", "2021-06-30")
     comp_2020 = ee.Algorithms.Landsat.simpleComposite(collection=l8, asFloat=True)
