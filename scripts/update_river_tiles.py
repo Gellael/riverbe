@@ -54,8 +54,8 @@ indo_fc = ee.FeatureCollection("USDOS/LSIB_SIMPLE/2017").filter(ee.Filter.eq("co
 indo_mask = ee.Image.constant(1).clip(indo_fc).mask()
 
 # Basemap satelit nasional (True Color RGB dengan visualisasi optimal)
-sat10_vis = ee.Image(ASSET_SAT_2010).visualize(bands=["B3", "B2", "B1"], min=10, max=220, gamma=1.2)
-sat20_vis = ee.Image(ASSET_SAT_2020).visualize(bands=["B4", "B3", "B2"], min=10, max=220, gamma=1.2)
+sat10_vis = ee.Image(ASSET_SAT_2010).visualize(bands=["B3", "B2", "B1"], min=8, max=55, gamma=1.5)
+sat20_vis = ee.Image(ASSET_SAT_2020).visualize(bands=["B4", "B3", "B2"], min=8, max=55, gamma=1.5)
 map_sat_2010 = ee.data.getMapId({"image": sat10_vis})
 map_sat_2020 = ee.data.getMapId({"image": sat20_vis})
 

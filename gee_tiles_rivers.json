@@ -125,9 +125,9 @@
     "asset2010": "projects/project-gis-494114/assets/bibir_sungai_2010",
     "asset2020": "projects/project-gis-494114/assets/bibir_sungai_2020",
     "assetDynamics": "projects/project-gis-494114/assets/dinamika_pergeseran_2010_2020",
-    "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/7bd6e49ed56290f531b41be96acb252c-c78552816d5d95bbdf47ca5fc03c676c/tiles/{z}/{x}/{y}",
-    "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/d674ef4e4658365658a987017d1e68ee-837573ff1a89a8aafc09053c24f3f7ef/tiles/{z}/{x}/{y}",
-    "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/ebc6bb9de74d0d2ffe178670d523aea9-5bae62c00e71f5d344cf9e48a400bba3/tiles/{z}/{x}/{y}",
+    "tile2010": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/7beac4f9eecfe646c19f3e17b4f713c5-45f50090db76db66d37ba2a26dbc1f14/tiles/{z}/{x}/{y}",
+    "tile2020": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/faaf373ff5877b175793980818eed4a4-0e5fdfe42122ba22c72fc954f6b65d90/tiles/{z}/{x}/{y}",
+    "tileChange": "https://earthengine.googleapis.com/v1/projects/project-gis-494114/maps/fb5968adcd363b405f5532515bd5aaa4-b45516e90c5c494f978941de5198ba5c/tiles/{z}/{x}/{y}",
     "colors": {
       "bank2010": "#fbbf24",
       "bank2020": "#ff2255",
